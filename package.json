@@ -1,37 +1,12 @@
 {
-  "name": "@snek-at/jaen",
-  "version": "3.0.0",
-  "type": "module",
-  "source": "src/index.js",
-  "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "unpkg": "./dist/index.umd.js",
-  "bin": {
-    "jaen": "./dist/index.cli.js"
-  },
-  "scripts": {
-    "build": "microbundle",
-    "build:cli": "microbundle -i src/cli/index.ts -o dist/index.cli.js --no-pkg-main --target node --generateTypes false --format modern",
-    "dev:cli": "yarn build:cli --watch",
-    "cli": "node ./dist/index.cli.js"
-  },
+  "name": "jaen",
+  "private": true,
+  "version": "1.0.0",
   "repository": "https://github.com/snek-at/jaen",
-  "author": "Nico Schett <schett@snek.at>",
+  "author": "Nico Schett <52858351+schettn@users.noreply.github.com>",
   "license": "MIT",
-  "dependencies": {
-    "commander": "^9.4.1",
-    "deepmerge": "^4.2.2",
-    "form-data": "^4.0.0",
-    "node-fetch": "^3.2.10",
-    "pino": "^8.6.1",
-    "pino-pretty": "^9.1.1"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.0",
-    "microbundle": "^0.15.1"
-  }
+  "workspaces": [
+    "packages/jaen",
+    "example"
+  ]
 }

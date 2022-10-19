@@ -1,24 +1,14 @@
-import {existsSync, readFileSync, writeFileSync} from 'fs'
-import {resolve} from 'path'
 import fetch from 'node-fetch'
 import deepmerge from 'deepmerge'
 
 import {nodejsSafeJsonUpload} from '../utils/osg.js'
 import {deepmergeArrayIdMerge} from '../utils/deepmerge.js'
-import {Site} from '../types.js'
 import {logger} from './logger.js'
 import packageJson from '../utils/packageJson.js'
+import { JaenData, MigrationEntity, RemoteFileMigration } from '../utils/JaenData'
 
-type RemoteFileMigration = {
-  createdAt: string
-  fileUrl: string
-}
 
-interface MigrationEntity {
-  context: RemoteFileMigration
-}
-
-interface BaseEntity extends MigrationEntity {
+export interface BaseEntity extends MigrationEntity {
   migrations: RemoteFileMigration[]
 }
 
@@ -185,67 +175,3 @@ const uploadMigration = async (data: object): Promise<RemoteFileMigration> => {
   return newMigration
 }
 
-const getJSONFile = (filePath: string, defaultData: object = {}) => {
-  if (!existsSync(filePath)) {
-    writeJSONFile(filePath, defaultData)
-  }
-
-  const fileData = readFileSync(filePath, 'utf8')
-
-  return JSON.parse(fileData)
-}
-
-const writeJSONFile = (filePath: string, data: any) => {
-  writeFileSync(filePath, JSON.stringify(data, null, 2))
-}
-
-class JaenData {
-  #jaenDataDir: string
-
-  pages: {
-    [pageId: string]: BaseEntity
-  }
-  notifications: {
-    [notificationId: string]: BaseEntity
-  }
-  internal: {
-    site: Site
-    finderUrl?: string
-    migrationHistory: Array<RemoteFileMigration>
-  }
-
-  constructor(options: {jaenDataDir: string}) {
-    const absoluteJaenDataDir = resolve(options.jaenDataDir)
-
-    if (!existsSync(absoluteJaenDataDir)) {
-      throw new Error(
-        `Jaen data directory does not exist: ${absoluteJaenDataDir}`
-      )
-    }
-
-    this.#jaenDataDir = absoluteJaenDataDir
-  }
-
-  private readJSONFile(fileName: string, defaultData = {}) {
-    return getJSONFile(`${this.#jaenDataDir}/${fileName}.json`, defaultData)
-  }
-
-  private writeJSONFile(fileName: string, data: any) {
-    return writeJSONFile(`${this.#jaenDataDir}/${fileName}.json`, data)
-  }
-
-  read() {
-    this.pages = this.readJSONFile('pages')
-    this.notifications = this.readJSONFile('notifications')
-    this.internal = this.readJSONFile('internal', {
-      site: {},
-      migrationHistory: []
-    })
-  }
-
-  write() {
-    this.writeJSONFile('pages', this.pages)
-    this.writeJSONFile('notifications', this.notifications)
-    this.writeJSONFile('internal', this.internal)
-  }
-}

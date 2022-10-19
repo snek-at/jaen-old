@@ -20,3 +20,5 @@ interface SiteMetadata {
 export interface Site {
   siteMetadata: Partial<SiteMetadata>
 }
+
+
