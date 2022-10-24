@@ -6,11 +6,15 @@ import {internal} from './dist/index.js'
 const {GatsbyRootWrapper, GatsbyPageWrapper} = internal
 
 export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
-  element
+  element,
+  pathname
 }) => {
   return <GatsbyRootWrapper>{element}</GatsbyRootWrapper>
 }
 
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({element}) => {
-  return <GatsbyPageWrapper>{element}</GatsbyPageWrapper>
+export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
+  element,
+  props
+}) => {
+  return <GatsbyPageWrapper path={props.path}>{element}</GatsbyPageWrapper>
 }

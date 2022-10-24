@@ -5,12 +5,13 @@ import {internal} from './dist/index.js'
 
 const {GatsbyRootWrapper, GatsbyPageWrapper} = internal
 
-export const wrapRootElement: GatsbySSR['wrapRootElement'] = ({
-  element
-}) => {
-  return <GatsbyRootWrapper>{element}</GatsbyRootWrapper>
+export const wrapRootElement: GatsbySSR['wrapRootElement'] = ({element}) => {
+  return <GatsbyRootWrapper ssr>{element}</GatsbyRootWrapper>
 }
 
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({element}) => {
-  return <GatsbyPageWrapper>{element}</GatsbyPageWrapper>
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({
+  element,
+  props
+}) => {
+  return <GatsbyPageWrapper path={props.path} ssr>{element}</GatsbyPageWrapper>
 }
