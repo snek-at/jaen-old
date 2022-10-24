@@ -1,7 +1,7 @@
 import {GatsbyBrowser} from 'gatsby'
 import React from 'react'
 
-import {internal} from './dist/index.js'
+import {internal} from '@snek-at/jaen'
 
 const {GatsbyRootWrapper, GatsbyPageWrapper} = internal
 
