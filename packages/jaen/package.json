@@ -34,6 +34,7 @@
     "@chakra-ui/react": "^2.3.6",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@jaenjs/snek-finder": "^1.0.0-beta.13",
     "@reduxjs/toolkit": "^1.8.6",
     "@snek-at/snek-api-client": "^0.0.7",
     "commander": "^9.4.1",

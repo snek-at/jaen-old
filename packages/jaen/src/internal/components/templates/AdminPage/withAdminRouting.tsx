@@ -12,25 +12,13 @@ export function withAdminRouting<P>(
   // already accepts AND our extraInfo prop
   WrappedComponent: React.ComponentType<P & WithAdminRoutingProps>
 ) {
-  const loadedViews = [
-    {
-      path: '/users',
-      label: 'Users',
-      Icon: null,
-      Component: () => <div>Users</div>,
-      group: 'Users'
-    }
-  ] as View[]
-
   const ComponentWithExtraInfo = ({
-    views: optionViews,
+    views,
     ...props
   }: P & {
     views: View[]
   }) => {
     // At this point, the props being passed in are the original props the component expects.
-
-    const views = [...optionViews, ...loadedViews]
 
     const builtViews = buildFromViews(views)
 

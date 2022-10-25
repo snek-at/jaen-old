@@ -2,12 +2,28 @@ import * as React from 'react'
 
 import {internal} from '@snek-at/jaen'
 
+import {BsHouse, BsFiles} from 'react-icons/bs'
+
 const {AdminPage} = internal
 
 const AdminPageContainer = () => {
   return (
     <AdminPage
-      views={[]}
+      views={[
+        {
+          path: '/',
+          Component: () => <div>Home</div>,
+          label: 'Dashboard',
+          Icon: BsHouse
+        },
+        {
+          path: '/files',
+          Component: internal.views.FilesView,
+          label: 'Files',
+          group: 'Your Site',
+          Icon: BsFiles
+        }
+      ]}
       toolbar={{
         toolbarItems: [
           {
@@ -21,12 +37,14 @@ const AdminPageContainer = () => {
             onClick: () => {
               alert('Edit')
             }
-          }, {
+          },
+          {
             label: 'Discard',
             onClick: () => {
               alert('Discard')
             }
-          }, {
+          },
+          {
             label: 'Publish',
             onClick: () => {
               alert('Publish')

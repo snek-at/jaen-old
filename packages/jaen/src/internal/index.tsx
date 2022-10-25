@@ -2,9 +2,13 @@ import {ChakraProvider} from '@chakra-ui/react'
 import {navigate} from 'gatsby'
 import {ActivationButton} from './components/index.js'
 import {IncomingBuildCheckerProvider} from './context/IncomingBuildChecker/index.js'
+import {SnekFinder} from './context/SnekFinder/index.js'
 
 export {useIncomingBuildChecker} from './context/IncomingBuildChecker/index.js'
+
 export {AdminPage} from './components/index.js'
+
+export * as views from './views/index.js'
 
 export interface WrapperProps {
   children: React.ReactNode
@@ -38,12 +42,24 @@ export const GatsbyPageWrapper: React.FC<PageWrapperProps> = ({
     navigate('/admin')
   }
 
-  return (
-    <>
-      {!isOnAdminPage && (
-        <ActivationButton onClick={handleActivationButtonClick} />
-      )}
-      {children}
-    </>
-  )
+  let Wrapper = () => {
+    return (
+      <>
+        {!isOnAdminPage && (
+          <ActivationButton onClick={handleActivationButtonClick} />
+        )}
+        {children}
+      </>
+    )
+  }
+
+  if (isOnAdminPage) {
+    return (
+      <SnekFinder>
+        <Wrapper />
+      </SnekFinder>
+    )
+  }
+
+  return <Wrapper />
 }
