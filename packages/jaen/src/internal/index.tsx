@@ -4,6 +4,7 @@ import {ActivationButton} from './components/index.js'
 import {IncomingBuildCheckerProvider} from './context/IncomingBuildChecker/index.js'
 
 export {useIncomingBuildChecker} from './context/IncomingBuildChecker/index.js'
+export {AdminPage} from './components/index.js'
 
 export interface WrapperProps {
   children: React.ReactNode

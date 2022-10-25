@@ -1,7 +1,8 @@
-import {GatsbyRootWrapper, GatsbyPageWrapper} from './internal/index.js'
+import {GatsbyRootWrapper, GatsbyPageWrapper, AdminPage} from './internal/index.js'
 
 
 export const internal = {
     GatsbyRootWrapper,
-    GatsbyPageWrapper
+    GatsbyPageWrapper,
+    AdminPage
 }

@@ -1,23 +1,22 @@
 {
   "name": "@snek-at/jaen",
-  "version": "30.0.0",
+  "version": "3.0.0",
   "source": "src/index.ts",
   "main": "./dist/index.js",
   "module": "./dist/index.module.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/src/index.d.ts",
       "require": "./dist/index.js",
       "default": "./dist/index.modern.mjs"
     },
     "./package.json": "./package.json"
   },
-  "unpkg": "./dist/index.umd.js",
   "bin": {
     "jaen": "./dist/index.cli.js"
   },
   "scripts": {
-    "build": "microbundle ",
+    "build": "microbundle --format modern,cjs,esm",
     "dev": "yarn build --watch",
     "build:cli": "microbundle -i src/cli/index.ts -o dist/index.cli.js --no-pkg-main --target node --generateTypes false --format modern",
     "dev:cli": "yarn build:cli --watch",
@@ -52,7 +51,9 @@
     "pino-pretty": "^9.1.1",
     "react": "^18.2.0",
     "react-helmet-async": "^1.3.0",
+    "react-icons": "^4.6.0",
     "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.2",
     "redux": "^4.2.0"
   },
   "devDependencies": {

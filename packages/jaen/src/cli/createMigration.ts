@@ -5,8 +5,7 @@ import {nodejsSafeJsonUpload} from '../utils/osg.js'
 import {deepmergeArrayIdMerge} from '../utils/deepmerge.js'
 import {logger} from './logger.js'
 import packageJson from '../utils/packageJson.js'
-import { JaenData, MigrationEntity, RemoteFileMigration } from '../utils/JaenData'
-
+import {JaenData, MigrationEntity, RemoteFileMigration} from '../utils/JaenData'
 
 export interface BaseEntity extends MigrationEntity {
   migrations: RemoteFileMigration[]
@@ -25,12 +24,7 @@ export const createMigration = async ({
   migrationUrl,
   jaenDataDir
 }: CreateMigrationOptions) => {
-
-
-
-
   try {
-
     const jaenData = new JaenData({jaenDataDir})
 
     const migration = await downloadMigrationFromUrl(migrationUrl)
@@ -42,7 +36,7 @@ export const createMigration = async ({
       migration
     })
 
-    jaenData.internal.migrationHistory.push({
+    jaenData.internal?.migrationHistory.push({
       createdAt: new Date().toISOString(),
       fileUrl: migrationUrl
     })
@@ -102,9 +96,11 @@ const processMigration = async ({
 
     switch (key) {
       case 'jaen':
-        jaenData.internal = deepmerge(jaenData.internal, value, {
-          arrayMerge: deepmergeArrayIdMerge
-        })
+        jaenData.internal = jaenData.internal
+          ? deepmerge(jaenData.internal, value, {
+              arrayMerge: deepmergeArrayIdMerge
+            })
+          : value
 
         break
       case 'pages':
@@ -174,4 +170,3 @@ const uploadMigration = async (data: object): Promise<RemoteFileMigration> => {
 
   return newMigration
 }
-
