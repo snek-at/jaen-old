@@ -6,14 +6,18 @@ const LazyAdminPage = React.lazy(() => import('./AdminPage.js'))
 
 export type AdminPageProps = React.ComponentProps<typeof LazyAdminPage>
 
-export const AdminPage: React.FC<AdminPageProps> = (props) => {
+export const AdminPage: React.FC<AdminPageProps> = props => {
   // AdminPage has a dependency on the `window` object, so we need to
   // check if we're in a browser environment before rendering it.
-  
 
   return (
-    <React.Suspense fallback={<LoadingAdminPage />}>
-      {!isSSR() ? <LazyAdminPage {...props} /> : <LoadingAdminPage />}
+    <React.Suspense
+      fallback={<LoadingAdminPage heading="Welcome to Jaen Admin" />}>
+      {!isSSR() ? (
+        <LazyAdminPage {...props} />
+      ) : (
+        <LoadingAdminPage heading="Welcome to Jaen Admin" />
+      )}
     </React.Suspense>
   )
 }
