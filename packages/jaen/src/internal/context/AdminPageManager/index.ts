@@ -1,0 +1,1 @@
+export {AdminPageManagerProvider} from './AdminPageManagerProvider';

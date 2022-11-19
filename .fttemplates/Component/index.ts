@@ -1,0 +1,1 @@
+export {[FTName], [FTName]Props} from './[FTName].js'
